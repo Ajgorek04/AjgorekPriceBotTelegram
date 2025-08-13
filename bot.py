@@ -81,10 +81,9 @@ async def list_alerts(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Brak aktywnych alertów.")
         return
 
-    # Grupujemy alerty według symbolu
     grouped = {}
-    for a in alerts:
-        grouped.setdefault(a["symbol"], []).append(a)
+    for idx, a in enumerate(alerts, start=1):
+        grouped.setdefault(a["symbol"], []).append((idx, a))
 
     msg = "📊 Aktywne alerty:\n"
     for symbol, symbol_alerts in grouped.items():
@@ -95,13 +94,34 @@ async def list_alerts(update: Update, context: ContextTypes.DEFAULT_TYPE):
             current_price_str = f"{current_price:.4f}"
 
         msg += f"\n**{symbol}** (aktualna cena: {current_price_str} USD)\n"
-
-        for a in symbol_alerts:
+        for idx, a in symbol_alerts:
             opis = f" - {a['desc']}" if a['desc'] else ""
             kier = "↑" if a['direction'] == "up" else "↓"
-            msg += f"  {kier} {a['price']}{opis}\n"
+            msg += f"  {idx}. {kier} {a['price']}{opis}\n"
 
     await update.message.reply_text(msg, parse_mode="Markdown")
+
+
+async def del_alert(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if len(context.args) != 1:
+        await update.message.reply_text("Użycie: /delalert <NUMER>")
+        return
+
+    try:
+        idx = int(context.args[0])
+    except ValueError:
+        await update.message.reply_text("Numer alertu musi być liczbą.")
+        return
+
+    if idx < 1 or idx > len(alerts):
+        await update.message.reply_text("Nie ma alertu o takim numerze.")
+        return
+
+    removed = alerts.pop(idx - 1)
+    save_alerts()
+    await update.message.reply_text(
+        f"🗑 Usunięto alert: {removed['symbol']} {removed['price']} ({removed['desc']})"
+    )
 
 
 async def price_checker(app):
@@ -137,6 +157,8 @@ async def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("setalert", set_alert))
     app.add_handler(CommandHandler("listalerts", list_alerts))
+    app.add_handler(CommandHandler("delalert", del_alert))
+
 
     asyncio.create_task(price_checker(app))
     await app.run_polling()
