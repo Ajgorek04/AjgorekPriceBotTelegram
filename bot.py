@@ -7,7 +7,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 TOKEN = "TWOJTOKEN"
-CHAT_ID = CHATID
+CHAT_ID = TWOJCHATID
 
 alerts = []
 ALERTS_FILE = "alerts.json"
@@ -76,30 +76,44 @@ async def set_alert(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"Kierunek alertu: {'wzrost do' if direction=='up' else 'spadek do'} ceny"
     )
 
+def get_all_prices() -> dict[str, float]:
+    """Pobiera aktualne ceny wszystkich par z Bybit SPOT."""
+    url = "https://api.bybit.com/v5/market/tickers?category=spot"
+    try:
+        response = requests.get(url, timeout=3)
+        data = response.json()
+        if data['retCode'] != 0 or not data['result']['list']:
+            return {}
+        return {item['symbol']: float(item['lastPrice']) for item in data['result']['list']}
+    except Exception:
+        return {}
+
+
 async def list_alerts(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not alerts:
         await update.message.reply_text("Brak aktywnych alertów.")
         return
 
+    prices = get_all_prices()
+
+    # Grupowanie alertów z numeracją
     grouped = {}
     for idx, a in enumerate(alerts, start=1):
         grouped.setdefault(a["symbol"], []).append((idx, a))
 
     msg = "📊 Aktywne alerty:\n"
     for symbol, symbol_alerts in grouped.items():
-        current_price = get_price(symbol)
-        if current_price is None:
-            current_price_str = "błąd API"
-        else:
-            current_price_str = f"{current_price:.4f}"
+        current_price = prices.get(symbol)
+        current_price_str = f"{current_price:.4f} USD" if current_price is not None else "błąd API"
 
-        msg += f"\n**{symbol}** (aktualna cena: {current_price_str} USD)\n"
+        msg += f"\n**{symbol}** (aktualna cena: {current_price_str})\n"
         for idx, a in symbol_alerts:
             opis = f" - {a['desc']}" if a['desc'] else ""
             kier = "↑" if a['direction'] == "up" else "↓"
             msg += f"  {idx}. {kier} {a['price']}{opis}\n"
 
     await update.message.reply_text(msg, parse_mode="Markdown")
+
 
 
 async def del_alert(update: Update, context: ContextTypes.DEFAULT_TYPE):

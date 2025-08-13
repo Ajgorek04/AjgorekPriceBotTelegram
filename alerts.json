@@ -1,1 +1,95 @@
-[{"symbol": "ETHUSDT", "price": 3300.0, "desc": "FVG, strefa pod longa?", "direction": "down"}, {"symbol": "ICPUSDT", "price": 6.0, "desc": "Potencjalna strefa pod shorta", "direction": "up"}, {"symbol": "ICPUSDT", "price": 4.9, "desc": "Potencjalna strefa pod longa od VAL ktory jest na 4.7", "direction": "down"}, {"symbol": "ICPUSDT", "price": 5.255, "desc": "POC", "direction": "down"}, {"symbol": "ETHUSDT", "price": 4800.0, "desc": "blisko ATH", "direction": "up"}, {"symbol": "ICPUSDT", "price": 5.3, "desc": "LONG ?", "direction": "down"}, {"symbol": "TONUSDT", "price": 3.333, "desc": "LONG ? ZOBACZYC TRADINGVIEW", "direction": "down"}, {"symbol": "TONUSDT", "price": 4.1, "desc": "OPOR NIEDLUGO ?", "direction": "up"}, {"symbol": "ALGOUSDT", "price": 0.24, "desc": "zej\u015bcie pod shorta ?", "direction": "down"}, {"symbol": "ALGOUSDT", "price": 0.28, "desc": "short?", "direction": "up"}]
+[
+  {
+    "symbol": "ETHUSDT",
+    "price": 3300.0,
+    "desc": "FVG, strefa pod longa?",
+    "direction": "down"
+  },
+  {
+    "symbol": "ICPUSDT",
+    "price": 6.0,
+    "desc": "Potencjalna strefa pod shorta",
+    "direction": "up"
+  },
+  {
+    "symbol": "ICPUSDT",
+    "price": 4.9,
+    "desc": "Potencjalna strefa pod longa od VAL ktory jest na 4.7",
+    "direction": "down"
+  },
+  { "symbol": "ICPUSDT", "price": 5.255, "desc": "POC", "direction": "down" },
+  {
+    "symbol": "ETHUSDT",
+    "price": 4800.0,
+    "desc": "blisko ATH",
+    "direction": "up"
+  },
+  { "symbol": "ICPUSDT", "price": 5.3, "desc": "LONG ?", "direction": "down" },
+  {
+    "symbol": "TONUSDT",
+    "price": 3.333,
+    "desc": "LONG ? ZOBACZYC TRADINGVIEW",
+    "direction": "down"
+  },
+  {
+    "symbol": "TONUSDT",
+    "price": 4.1,
+    "desc": "OPOR NIEDLUGO ?",
+    "direction": "up"
+  },
+  {
+    "symbol": "ALGOUSDT",
+    "price": 0.24,
+    "desc": "zej\u015bcie pod shorta ?",
+    "direction": "down"
+  },
+  { "symbol": "ALGOUSDT", "price": 0.28, "desc": "short?", "direction": "up" },
+  {
+    "symbol": "LTCUSDT",
+    "price": 105.0,
+    "desc": "SILNY SUPPORT",
+    "direction": "down"
+  },
+  { "symbol": "ETCUSDT", "price": 23.0, "desc": "LONG ?", "direction": "down" },
+  {
+    "symbol": "BTCUSDT",
+    "price": 119000.0,
+    "desc": "long?",
+    "direction": "down"
+  },
+  { "symbol": "MOVEUSDT", "price": 0.14, "desc": "long?", "direction": "down" },
+  { "symbol": "SNXUSDT", "price": 0.65, "desc": "LONG?", "direction": "down" },
+  {
+    "symbol": "ICPUSDT",
+    "price": 5.625,
+    "desc": "LONG Z POC?",
+    "direction": "down"
+  },
+  { "symbol": "LTCUSDT", "price": 128.0, "desc": "long?", "direction": "down" },
+  {
+    "symbol": "BCHUSDT",
+    "price": 610.0,
+    "desc": "long od emy 50?",
+    "direction": "down"
+  },
+  { "symbol": "ICPUSDT", "price": 5.68, "desc": "?", "direction": "down" },
+  { "symbol": "ALGOUSDT", "price": 0.27, "desc": "?", "direction": "down" },
+  {
+    "symbol": "ETHUSDT",
+    "price": 4500.0,
+    "desc": "ZOBACZ",
+    "direction": "down"
+  },
+  {
+    "symbol": "TONUSDT",
+    "price": 3.4,
+    "desc": "EMA 200 ?",
+    "direction": "down"
+  },
+  {
+    "symbol": "XRPUSDT",
+    "price": 3.16,
+    "desc": "ema? vwap?",
+    "direction": "down"
+  }
+]
