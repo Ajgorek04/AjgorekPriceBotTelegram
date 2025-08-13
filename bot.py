@@ -6,8 +6,8 @@ import os
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = "TELEGRAMTOKEN"
-CHAT_ID = CHATID
+TOKEN = "8396501285:AAF3GY_UE65JfefAa4W0Zpn6dG5xFMdVdXo"
+CHAT_ID = 6545019694
 
 alerts = []
 ALERTS_FILE = "alerts.json"
@@ -80,12 +80,29 @@ async def list_alerts(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not alerts:
         await update.message.reply_text("Brak aktywnych alertów.")
         return
-    msg = "Aktywne alerty:\n"
+
+    # Grupujemy alerty według symbolu
+    grouped = {}
     for a in alerts:
-        opis = f" - {a['desc']}" if a['desc'] else ""
-        kier = "↑" if a['direction'] == "up" else "↓"
-        msg += f"{a['symbol']} {kier} {a['price']}{opis}\n"
-    await update.message.reply_text(msg)
+        grouped.setdefault(a["symbol"], []).append(a)
+
+    msg = "📊 Aktywne alerty:\n"
+    for symbol, symbol_alerts in grouped.items():
+        current_price = get_price(symbol)
+        if current_price is None:
+            current_price_str = "błąd API"
+        else:
+            current_price_str = f"{current_price:.4f}"
+
+        msg += f"\n**{symbol}** (aktualna cena: {current_price_str} USD)\n"
+
+        for a in symbol_alerts:
+            opis = f" - {a['desc']}" if a['desc'] else ""
+            kier = "↑" if a['direction'] == "up" else "↓"
+            msg += f"  {kier} {a['price']}{opis}\n"
+
+    await update.message.reply_text(msg, parse_mode="Markdown")
+
 
 async def price_checker(app):
     while True:
