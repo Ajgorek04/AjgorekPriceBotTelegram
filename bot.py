@@ -6,8 +6,8 @@ import os
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = "8396501285:AAF3GY_UE65JfefAa4W0Zpn6dG5xFMdVdXo"
-CHAT_ID = 6545019694
+TOKEN = "TWOJTOKEN"
+CHAT_ID = CHATID
 
 alerts = []
 ALERTS_FILE = "alerts.json"
